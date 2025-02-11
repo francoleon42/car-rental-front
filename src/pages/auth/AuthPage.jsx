@@ -1,56 +1,77 @@
 // components/Auth/AuthContainer.jsx
 import { useState } from 'react';
-import  LoginForm  from './components/LoginForm';
-import  SignupForm from './components/SignupForm';
-import  ForgotPasswordForm  from './components/ForgotPasswordForm';
+import LoginForm from './components/LoginForm';
+import SignupForm from './components/SignupForm';
+import ForgotPasswordForm from './components/ForgotPasswordForm';
+import { FaGoogle, FaFacebookF, FaCarSide } from 'react-icons/fa';
 
 const AuthPage = () => {
   const [authMode, setAuthMode] = useState('login');
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full bg-white p-8 rounded-xl shadow-lg">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900">
-            {authMode === 'login' && 'Iniciar Sesión'}
-            {authMode === 'signup' && 'Registrarse'}
-            {authMode === 'forgot' && 'Recuperar Contraseña'}
-          </h2>
-        </div>
+    <div className="flex min-h-screen">
+      <div className="hidden lg:flex lg:w-1/2 relative">
+        <img
+          src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7"
+          alt="Luxury Car"
+          className="object-cover w-full"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-blue-900/75"></div>
+      </div>
 
-        {authMode === 'login' && (
-          <LoginForm
-            switchToSignup={() => setAuthMode('signup')}
-            switchToForgot={() => setAuthMode('forgot')}
-          />
-        )}
+      <div className="w-full max-w-lg md:max-w-xl lg:max-w-4xl bg-white rounded-2xl shadow-xl p-10 transition-all duration-300 hover:shadow-2xl">
 
-        {authMode === 'signup' && (
-          <SignupForm switchToLogin={() => setAuthMode('login')} />
-        )}
+        <div className="w-full max-w-lg md:max-w-3xl min-h-[700px] bg-white rounded-2xl shadow-xl p-10 transition-all duration-300 hover:shadow-2xl">
 
-        {authMode === 'forgot' && (
-          <ForgotPasswordForm switchToLogin={() => setAuthMode('login')} />
-        )}
 
-        {/* Social Login (Opcional) */}
-        <div className="mt-6">
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300"></div>
+          <div className="text-center mb-8 ">
+            <div className="flex justify-center mb-4">
+              <FaCarSide className="text-4xl text-indigo-600" />
             </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-gray-500">O continúa con</span>
-            </div>
+            <h2 className="text-3xl font-bold text-gray-800 mb-2">
+              {authMode === 'login' && 'Bienvenido a CarRent'}
+              {authMode === 'signup' && 'Únete a DriveHub'}
+              {authMode === 'forgot' && 'Recupera tu acceso'}
+            </h2>
+            <p className="text-gray-500">
+              {authMode === 'login' && 'Tu viaje perfecto comienza aquí'}
+              {authMode === 'signup' && 'Empieza a explorar con nosotros'}
+              {authMode === 'forgot' && 'Te ayudaremos a recuperar el acceso'}
+            </p>
           </div>
 
-          <div className="mt-6 flex justify-center space-x-4">
-            <button className="p-2 rounded-full border hover:bg-gray-50 transition-colors">
-              {/* Icono Google */}
-            </button>
-            <button className="p-2 rounded-full border hover:bg-gray-50 transition-colors">
-              {/* Icono Facebook */}
-            </button>
+          {authMode === 'login' && (
+            <LoginForm
+              switchToSignup={() => setAuthMode('signup')}
+              switchToForgot={() => setAuthMode('forgot')}
+            />
+          )}
+
+          {authMode === 'signup' && (
+            <SignupForm switchToLogin={() => setAuthMode('login')} />
+          )}
+
+          {authMode === 'forgot' && (
+            <ForgotPasswordForm switchToLogin={() => setAuthMode('login')} />
+          )}
+
+          <div className="mt-8 text-center text-sm text-gray-500">
+            {authMode !== 'signup' && (
+              <button
+                onClick={() => setAuthMode('signup')}
+                className="font-medium text-indigo-600 hover:text-indigo-500 ml-1"
+              >
+                Crear cuenta nueva
+              </button>
+            )}
+            {authMode !== 'login' && (
+              <button
+                onClick={() => setAuthMode('login')}
+                className="font-medium text-indigo-600 hover:text-indigo-500 ml-1"
+              >
+                Volver a login
+              </button>
+            )}
           </div>
         </div>
       </div>
