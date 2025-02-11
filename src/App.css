@@ -1,1 +1,12 @@
 @import "tailwindcss";
+
+body {
+  @apply text-2xl;
+}
+p {
+  @apply text-lg; 
+}
+
+label{
+ @apply text-lg; 
+}
