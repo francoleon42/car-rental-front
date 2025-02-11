@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const ImageGallery = ({ images }) => {
+const AutoImagenes = ({ images }) => {
   const [selectedImage, setSelectedImage] = useState(0);
 
   return (
@@ -34,4 +34,4 @@ const ImageGallery = ({ images }) => {
   );
 };
 
-export default ImageGallery;
+export default AutoImagenes;

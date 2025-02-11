@@ -1,6 +1,6 @@
 import { formatCurrency, formatDate } from '../formatters';
 
-const CarSpecs = ({ car }) => {
+const AutoEspecificaciones = ({ car }) => {
   return (
     <div className="bg-white p-6 rounded-lg shadow-sm">
       <h2 className="text-2xl font-bold text-gray-800 mb-4">
@@ -48,4 +48,4 @@ const CarSpecs = ({ car }) => {
   );
 };
 
-export default CarSpecs;
+export default AutoEspecificaciones;

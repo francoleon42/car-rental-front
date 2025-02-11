@@ -1,6 +1,6 @@
 import { formatCurrency, formatDate } from '../formatters';
 
-const CarCard = ({ car }) => {
+const AutoCard = ({ car }) => {
   return (
     <div className="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow h-full">
       <div className="flex flex-col h-full">
@@ -29,4 +29,4 @@ const CarCard = ({ car }) => {
   );
 };
 
-export default CarCard;
+export default AutoCard;

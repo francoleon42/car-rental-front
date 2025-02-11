@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import CarSpecs from './CarSpecs';
-import ImageGallery from './ImageGallery';
+import AutoEspecificaciones from './AutoEspecificaciones';
+import AutoImagenes from './AutoImagenes';
 
-const CarDetail = () => {
+const AutoDetalle = () => {
   const { id } = useParams();
-  const [carDetail, setCarDetail] = useState(null);
+  const [autoDetalle, setAutoDetalle] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -69,7 +69,7 @@ const CarDetail = () => {
             ]
         };
         // const data = await getCarDetail(id);
-        setCarDetail(data);
+        setAutoDetalle(data);
       } catch (error) {
         console.error('Error fetching car detail:', error);
       } finally {
@@ -81,18 +81,18 @@ const CarDetail = () => {
   }, [id]);
 
   if (loading) return <div className="text-center py-8">Cargando...</div>;
-  if (!carDetail) return <div className="text-center py-8">Auto no encontrado</div>;
+  if (!autoDetalle) return <div className="text-center py-8">Auto no encontrado</div>;
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <ImageGallery images={carDetail.picturesResponseDTO} />
-          <CarSpecs car={carDetail.carResponseDTO} />
+          <AutoImagenes images={autoDetalle.picturesResponseDTO} />
+          <AutoEspecificaciones car={autoDetalle.carResponseDTO} />
         </div>
       </div>
     </div>
   );
 };
 
-export default CarDetail;
+export default AutoDetalle;

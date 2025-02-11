@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import CarCard from './componentes/CarCard';
+import AutoCard from './componentes/AutoCard';
 // import { getCars } from '../api/mockApi';
 
 const AutoListPage = () => {
@@ -29,7 +29,7 @@ const AutoListPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {cars.map((car) => (
             <Link to={`/auto/detalle/${car.id}`} key={car.id}>
-              <CarCard car={car} />
+              <AutoCard car={car} />
             </Link>
           ))}
         </div>

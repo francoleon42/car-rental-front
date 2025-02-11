@@ -6,7 +6,8 @@ import MenuPage from "../pages/menu/MenuPage";
 import CreateRentaPage from "../pages/rolCliente/crearRenta/CrearRentaPage";
 import RentasListPage from "../pages/rolCliente/solicitudesDeRenta/RentaListPage";
 import AutoListPage from "../pages/rolCliente/verAutos/AutoListPage";
-import CarDetail from "../pages/rolCliente/verAutos/componentes/CarDetail";
+import AutoDetalle from "../pages/rolCliente/verAutos/componentes/AutoDetalle";
+import RentasSolicitadasPage from "../pages/rolAdmin/gestionRenta/RentasSolicitadasPage"
 
 
 export const MyRoutes = () => {
@@ -19,7 +20,9 @@ export const MyRoutes = () => {
         <Route path="/cliente/crear-renta" element={< CreateRentaPage/>} />
         <Route path="/cliente/renta-list" element={< RentasListPage/>} />
         <Route path="/cliente/auto-list" element={< AutoListPage/>} />
-        <Route path="/auto/detalle/:id" element={< CarDetail/>} />
+        <Route path="/cliente/auto/detalle/:id" element={< AutoDetalle/>} />
+
+        <Route path="/admin/renta/solicitadas" element={< RentasSolicitadasPage/>} />
         
         
       </Routes>
