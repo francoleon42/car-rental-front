@@ -2,7 +2,7 @@ import { useState } from 'react';
 import CarDropdown from './components/CarDropdown';
 import DateInput from './components/DateInput';
 
-const CreateRenta = () => {
+const CreateRentaPage = () => {
   const [selectedCar, setSelectedCar] = useState(null);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
@@ -44,4 +44,4 @@ const CreateRenta = () => {
   );
 };
 
-export default CreateRenta;
+export default CreateRentaPage;
