@@ -1,4 +1,3 @@
-// components/Auth/ForgotPasswordForm.jsx
 import { useState } from 'react';
 import { FaEnvelope } from 'react-icons/fa';
 //import { forgotPassword } from '../../servicios/authServicio';

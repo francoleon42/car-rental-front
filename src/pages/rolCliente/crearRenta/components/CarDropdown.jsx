@@ -1,5 +1,4 @@
 // obtener todos los cars disponibles 	GET {{baseUrl}}/cars
-
 const cars = [
     { id: 1, model: 'Toyota Corolla', year: 2023 },
     { id: 2, model: 'Honda Civic', year: 2024 },

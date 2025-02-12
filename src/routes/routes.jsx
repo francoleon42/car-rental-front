@@ -9,6 +9,7 @@ import AutoListPage from "../pages/rolCliente/verAutos/AutoListPage";
 import AutoDetalle from "../pages/rolCliente/verAutos/componentes/AutoDetalle";
 import RentasSolicitadasPage from "../pages/rolAdmin/gestionRenta/RentasSolicitadasPage"
 import ClientsPage from "../pages/rolAdmin/verHistorialDeCliente/ClientesPages";
+import GestionAutosPage from "../pages/rolAdmin/gestionarAutos/GestionAutosPage";
 
 
 export const MyRoutes = () => {
@@ -25,6 +26,9 @@ export const MyRoutes = () => {
 
         <Route path="/admin/renta/solicitadas" element={< RentasSolicitadasPage/>} />
         <Route path="/admin/clientes/" element={< ClientsPage/>} />
+
+        <Route path="/admin/autos/" element={< GestionAutosPage/>} />
+        
         
         
       </Routes>

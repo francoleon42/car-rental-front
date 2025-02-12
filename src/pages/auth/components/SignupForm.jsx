@@ -1,4 +1,3 @@
-// components/Auth/SignupForm.jsx
 import { useState } from 'react';
 import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
 //import { signup } from '../../servicios/authServicio';

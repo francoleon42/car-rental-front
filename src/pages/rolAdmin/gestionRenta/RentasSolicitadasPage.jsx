@@ -1,4 +1,3 @@
-// pages/RequestsPage.jsx
 import { useState } from 'react';
 import RequestsList from '../gestionRenta/componentes/RequestsList';
 

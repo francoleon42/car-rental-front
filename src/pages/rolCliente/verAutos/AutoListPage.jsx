@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AutoCard from './componentes/AutoCard';
-// import { getCars } from '../api/mockApi';
 
 const AutoListPage = () => {
   const [cars, setCars] = useState([]);

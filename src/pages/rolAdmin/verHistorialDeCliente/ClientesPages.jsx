@@ -1,4 +1,3 @@
-// pages/ClientsPage.jsx
 import { useState } from 'react';
 import ClienteCard from './componentes/ClienteCard';
 import ClienteDetalle from './componentes/ClienteDetalle'; '../verHistorialDeCliente/componentes/ClienteDetalle';
