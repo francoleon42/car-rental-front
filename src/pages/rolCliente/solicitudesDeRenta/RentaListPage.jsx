@@ -1,42 +1,19 @@
 import { useState, useEffect } from 'react';
 import RentasCard from './components/RentasCard';
+import { myRents } from '../../../servicios/rentService';
+import { useAuth } from '../../auth/AuthContext.jsx';
 
 const RentasListPage = () => {
     const [rentas, setRentas] = useState([]);
+    const { token } = useAuth();
 
     useEffect(() => {
         const fetchRentas = async () => {
             try {
-                const data = [
-                    {
-                        "id": 1,
-                        "pricePerDay": 50,
-                        "acceptedDate": null,
-                        "rejected": false,
-                        "startingDate": "2024-03-01T00:00:00.000Z",
-                        "dueDate": "2026-03-05T00:00:00.000Z",
-                        "endDate": null,
-                        "createdAt": "2025-02-11T18:26:02.152Z",
-                        "updatedAt": "2025-02-11T18:26:02.152Z"
-                    },
-                    {
-                        "id": 2,
-                        "pricePerDay": 50,
-                        "acceptedDate": null,
-                        "rejected": true,
-                        "startingDate": "2024-04-01T00:00:00.000Z",
-                        "dueDate": "2026-03-05T00:00:00.000Z",
-                        "endDate": null,
-                        "createdAt": "2025-02-11T18:26:02.157Z",
-                        "updatedAt": "2025-02-11T18:26:02.157Z"
-                    }
-                   
-                ];
-                
-                console.log(data);
-                // const data = await getRentas(); // Descomentar e implementar servicio api
-                // GET {{baseUrl}}/rent/mis_solicitudes
-                setRentas(data);
+               
+                const response = await myRents(token);
+                console.log(response);
+                setRentas(response);
             } catch (error) {
                 console.error('Error fetching rentas:', error);
             }

@@ -11,5 +11,5 @@ export const createRent = async (data,token) => {
 
 export const myRents = async (token) => {
     const endpoint = backendUrl + '/rent/mis_solicitudes';
-    return await executeFetch(endpoint, null, HttpMethods.POST, token, 200);
+    return await executeFetch(endpoint, null, HttpMethods.GET, token, 200);
 };
