@@ -1,23 +1,26 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AutoCard from './componentes/AutoCard';
+import { useAuth } from '../../auth/AuthContext';
+import { getCars } from '../../../servicios/carService';
 
 const AutoListPage = () => {
   const [cars, setCars] = useState([]);
+   const { token } = useAuth();
 
   useEffect(() => {
     const fetchCars = async () => {
       try {
-
-        const data = [{"id":1,"brand":"Toyota","model":"Corolla","color":"Red","passengers":5,"ac":true,"pricePerDay":50,"createdAt":"2025-02-11T18:45:15.461Z"},{"id":2,"brand":"Honda","model":"Civic","color":"Blue","passengers":5,"ac":true,"pricePerDay":45,"createdAt":"2025-02-11T18:45:15.476Z"}]
-
-        // const data = await getCars();
-        setCars(data);
+        const response = await getCars(token);
+        setCars(response);
       } catch (error) {
-        console.error('Error fetching cars:', error);
+        console.error("Error al obtener cars:", error);
+        setError("Error al cargar los autos");
+      } finally {
+        setLoading(false);
       }
     };
-    
+
     fetchCars();
   }, []);
 
