@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 
 const LoginForm = ({ switchToSignup, switchToForgot }) => {
   const navigate = useNavigate();
-  // contexto
   const { setToken } = useAuth();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -75,13 +74,6 @@ const LoginForm = ({ switchToSignup, switchToForgot }) => {
 
       <div className="flex items-center justify-between">
         <label className="flex items-center">
-          <input
-            type="checkbox"
-            checked={formData.remember}
-            onChange={(e) => setFormData({ ...formData, remember: e.target.checked })}
-            className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-          />
-          <span className="ml-2 text-sm text-gray-600">Recordarme</span>
         </label>
         <button
           type="button"

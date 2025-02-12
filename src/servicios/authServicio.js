@@ -8,9 +8,9 @@ export const login = async (data) => {
     return await executeFetch(endpoint, data, HttpMethods.POST, null, 201);
 };
 
-export const register = async (data, token) => {
+export const signup = async (data) => {
     const endpoint = backendUrl + '/auth/signup';
-    return await executeFetch(endpoint, data, HttpMethods.POST, token, 201);
+    return await executeFetch(endpoint, data, HttpMethods.POST, null, 201);
 };
 
 

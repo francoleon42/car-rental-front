@@ -1,32 +1,34 @@
 import { useState } from 'react';
 import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
-//import { signup } from '../../servicios/authServicio';
+
+import { useNavigate } from 'react-router-dom';
+import {signup} from "../../../servicios/authServicio"
 
 const SignupForm = ({ switchToLogin }) => {
+  const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [formData, setFormData] = useState({
-    fullName: '',
     email: '',
     password: '',
     confirmPassword: ''
   });
 
-  const handleSubmit = async (e) => {
+   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
     
-    if (formData.password !== formData.confirmPassword) {
-      setError('Las contraseñas no coinciden');
-      setLoading(false);
-      return;
-    }
-
     try {
-      //await signup(formData);
-      // Redirigir o manejar éxito
+      const request = {
+        "email": formData.email,
+        "password": formData.password,
+        "role":"client"
+      }
+      const response = await signup(request);
+      alert('¡Te has registrado exitosamente!');
     } catch (err) {
       setError(err.message || 'Error al registrarse');
     } finally {
@@ -39,20 +41,19 @@ const SignupForm = ({ switchToLogin }) => {
       {error && <div className="text-red-500 text-sm">{error}</div>}
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Nombre Completo</label>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
         <div className="relative">
           <FaUser className="absolute left-3 top-3 text-gray-400" />
           <input
             type="text"
             required
             className="w-full pl-10 pr-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            value={formData.fullName}
-            onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+            value={formData.email}
+            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           />
         </div>
       </div>
 
-      {/* Email Field (similar to Login) */}
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
@@ -74,8 +75,6 @@ const SignupForm = ({ switchToLogin }) => {
           </button>
         </div>
       </div>
-
-      {/* Confirm Password Field (similar to Password) */}
 
       <button
         type="submit"
