@@ -1,32 +1,13 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import {FiHome, FiUsers, FiBarChart2, FiSettings, FiClipboard, FiMessageSquare, FiBook, FiInfo, FiClock, FiImage } from "react-icons/fi";
+import { FiHome, FiUsers, FiBarChart2, FiSettings, FiClipboard, FiMessageSquare, FiBook, FiInfo, FiClock, FiImage } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 import ImageCarousel from "./components/ImageCarousel.jsx"
-
 import { MdDirectionsCar } from "react-icons/md";
+import { getUser } from "../../servicios/usuarioServicio.js";
+import { useAuth } from "../../pages/auth/AuthContext.jsx";
 
 
-// Create Authentication Context
-const AuthContext = createContext();
 
-const useAuth = () => useContext(AuthContext);
-
-// Authentication Provider Component
-const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState({
-    role: "cliente",
-    name: "John Doe",
-    avatar: "https://e7.pngegg.com/pngimages/130/10/png-clipart-management-organization-logo-person-retail-clothing-accessories-service-retail.png"
-  });
-
-  const logout = () => setUser(null);
-
-  return (
-    <AuthContext.Provider value={{ user, logout }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
 
 // Menu Configuration
 const menuConfig = {
@@ -37,7 +18,7 @@ const menuConfig = {
     { icon: MdDirectionsCar, label: "Gestionar autos", path: "/users" },
     { icon: FiImage, label: "Gestionar imagenes de autos", path: "/analytics" },
   ],
-  cliente: [
+  client: [
     { icon: FiSettings, label: "Gestionar perfil", path: "/dashboard" },
     { icon: FiClipboard, label: "Solicitar renta", path: "/tasks" },
     { icon: FiMessageSquare, label: "Ver mis solicitudes", path: "/messages" },
@@ -46,8 +27,7 @@ const menuConfig = {
 };
 
 // Sidebar Component
-const Sidebar = () => {
-  const { user } = useAuth();
+const Sidebar = ({ user }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const menuItems = menuConfig[user?.role] || menuConfig.guest;
@@ -97,9 +77,8 @@ const Sidebar = () => {
 };
 
 // TopNavigation Component
-const TopNavigation = () => {
-  const { user, logout } = useAuth();
-
+const TopNavigation = ({ user, logout }) => {
+  if (!user) return <div>Loading...</div>;
   return (
     <div className="h-16 bg-white shadow-sm fixed top-0 right-0 left-240 z-10">
       <div className="h-full px-6 flex items-center justify-between">
@@ -110,11 +89,11 @@ const TopNavigation = () => {
         </div>
         <div className="flex items-center space-x-4">
           <img
-            src={user?.avatar}
+            src="https://e7.pngegg.com/pngimages/130/10/png-clipart-management-organization-logo-person-retail-clothing-accessories-service-retail.png"
             alt="User"
             className="w-8 h-8 rounded-full"
           />
-          <span className="text-lg font-medium text-gray-700">{user?.name}</span>
+          <span className="text-lg font-medium text-gray-700">{user?.firstName}, {user?.lastName}</span>
           <button
             onClick={logout}
             className="px-4 py-2 text-lg font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors"
@@ -127,24 +106,43 @@ const TopNavigation = () => {
   );
 };
 
-
 const MenuPage = () => {
+  const { token, logout } = useAuth();
+  const [user, setUser] = useState(null); 
+
+  useEffect(() => {
+    if (!token) return; 
+
+    const fetchUser = async () => {
+      try {
+        const response = await getUser(token); 
+        setUser(response); 
+      } catch (error) {
+        console.log("Error al obtener usuario:", error);
+      }
+    };
+
+    fetchUser(); 
+  }, [token]); 
+
+  if (!user) {
+    return <div>Loading...</div>; 
+  }
+
   return (
-    <AuthProvider>
-      <div className="min-h-screen bg-gray-50">
-        <Sidebar />
-        <div className="ml-240 transition-all duration-300">
-          <TopNavigation />
-          <main className="p-6 mt-16">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div className="col-span-full">
-                <ImageCarousel />
-              </div>
+    <div className="min-h-screen bg-gray-50">
+      <Sidebar user={user} />
+      <div className="ml-240 transition-all duration-300">
+        <TopNavigation user={user} logout={ logout } />
+        <main className="p-6 mt-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="col-span-full">
+              <ImageCarousel />
             </div>
-          </main>
-        </div>
+          </div>
+        </main>
       </div>
-    </AuthProvider>
+    </div>
   );
 };
 

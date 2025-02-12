@@ -1,25 +1,32 @@
 import { useState } from 'react';
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { login } from '../../../servicios/authServicio';
+import { useAuth } from "../../../pages/auth/AuthContext";
+import { useNavigate } from 'react-router-dom';
+
 
 const LoginForm = ({ switchToSignup, switchToForgot }) => {
+  const navigate = useNavigate();
+  // contexto
+  const { setToken } = useAuth();
+
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    remember: false
+    email: 'john.doe@example.com',
+    password: '1234',
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
-    
+
     try {
-      await login(formData);
-      // Redirigir o manejar éxito
+      const response = await login(formData);
+      setToken(response.access_token);
+      navigate('/menu');
     } catch (err) {
       setError(err.message || 'Error al iniciar sesión');
     } finally {

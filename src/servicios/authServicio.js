@@ -4,7 +4,6 @@ import {HttpMethods} from '../connection/HttpMethods'
 
 
 export const login = async (data) => {
-    console.log(data);
     const endpoint = backendUrl + '/auth/login';
     return await executeFetch(endpoint, data, HttpMethods.POST, null, 201);
 };
