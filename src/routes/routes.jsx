@@ -20,14 +20,13 @@ export const MyRoutes = () => {
           <Route path="/" element={<AuthPage />} />
           <Route path="/menu" element={<MenuPage />} />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/cliente/crear-renta" element={< CreateRentaPage />} />
-          <Route path="/cliente/renta-list" element={< RentasListPage />} />
+          <Route path="/cliente/solicitar-renta" element={< CreateRentaPage />} />
+          <Route path="/cliente/mis-solicitudes" element={< RentasListPage />} />
           <Route path="/cliente/auto-list" element={< AutoListPage />} />
-          <Route path="/cliente/auto/detalle/:id" element={< AutoDetalle />} />
+          <Route path="/auto/detalle/:id" element={< AutoDetalle />} />
 
-          <Route path="/admin/renta/solicitadas" element={< RentasSolicitadasPage />} />
           <Route path="/admin/clientes/" element={< ClientsPage />} />
-
+          <Route path="/admin/renta/solicitadas" element={< RentasSolicitadasPage />} />
           <Route path="/admin/autos/" element={< GestionAutosPage />} />
           <Route path="/admin/imagenes/" element={< GestionDeImagenesPage />} />
 

@@ -5,6 +5,7 @@ import ImageCarousel from "./components/ImageCarousel.jsx"
 import { MdDirectionsCar } from "react-icons/md";
 import { getUser } from "../../servicios/usuarioServicio.js";
 import { useAuth } from "../../pages/auth/AuthContext.jsx";
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -12,26 +13,29 @@ import { useAuth } from "../../pages/auth/AuthContext.jsx";
 // Menu Configuration
 const menuConfig = {
   admin: [
-    { icon: FiSettings, label: "Gestionar perfil", path: "/dashboard" },
-    { icon: FiClock, label: "Ver historial de clientes", path: "/dashboard" },
-    { icon: FiClipboard, label: "Gestionar rentas", path: "/dashboard" },
-    { icon: MdDirectionsCar, label: "Gestionar autos", path: "/users" },
-    { icon: FiImage, label: "Gestionar imagenes de autos", path: "/analytics" },
+    { icon: FiSettings, label: "Gestionar perfil", path: "/profile" },
+    { icon: FiClock, label: "Ver historial de clientes", path: "/admin/clientes/" },
+    { icon: FiClipboard, label: "Gestionar rentas", path: "/admin/renta/solicitadas" },
+    { icon: MdDirectionsCar, label: "Gestionar autos", path: "/admin/autos/" },
+    { icon: FiImage, label: "Gestionar imagenes de autos", path: "/admin/imagenes/" },
   ],
   client: [
-    { icon: FiSettings, label: "Gestionar perfil", path: "/dashboard" },
-    { icon: FiClipboard, label: "Solicitar renta", path: "/tasks" },
-    { icon: FiMessageSquare, label: "Ver mis solicitudes", path: "/messages" },
-    { icon: MdDirectionsCar, label: "Ver autos disponibles", path: "/messages" }
+    { icon: FiSettings, label: "Gestionar perfil", path: "/profile" },
+    { icon: FiClipboard, label: "Solicitar renta", path: "/cliente/solicitar-renta" },
+    { icon: FiMessageSquare, label: "Ver mis solicitudes", path: "/cliente/mis-solicitudes" },
+    { icon: MdDirectionsCar, label: "Ver autos disponibles", path: "/cliente/auto-list" }
   ]
 };
 
 // Sidebar Component
 const Sidebar = ({ user }) => {
+  const navigate = useNavigate();
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const menuItems = menuConfig[user?.role] || menuConfig.guest;
-
+  const handleNavigation = (path) => {
+    navigate(path); 
+  };
   return (
     <motion.div
       initial={{ width: 720 }}
@@ -60,6 +64,7 @@ const Sidebar = ({ user }) => {
           {menuItems.map((item, index) => (
             <motion.button
               key={index}
+              onClick={() => handleNavigation(item.path)}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="w-full flex items-center p-3 mb-2 rounded-lg hover:bg-gray-100 transition-colors"
