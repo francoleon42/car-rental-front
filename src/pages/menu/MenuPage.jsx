@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
+
 // Menu Configuration
 const menuConfig = {
   admin: [
@@ -82,7 +83,11 @@ const Sidebar = ({ user }) => {
 };
 
 // TopNavigation Component
-const TopNavigation = ({ user, logout }) => {
+const TopNavigation = ({ user}) => {
+  const navigate = useNavigate();
+  const handleLogout = () =>{
+    navigate("/");
+  }
   if (!user) return <div>Loading...</div>;
   return (
     <div className="h-16 bg-white shadow-sm fixed top-0 right-0 left-240 z-10">
@@ -100,7 +105,7 @@ const TopNavigation = ({ user, logout }) => {
           />
           <span className="text-lg font-medium text-gray-700">{user?.firstName}, {user?.lastName}</span>
           <button
-            onClick={logout}
+            onClick={handleLogout}
             className="px-4 py-2 text-lg font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors"
           >
             Logout
@@ -138,7 +143,7 @@ const MenuPage = () => {
     <div className="min-h-screen bg-gray-50">
       <Sidebar user={user} />
       <div className="ml-240 transition-all duration-300">
-        <TopNavigation user={user} logout={ logout } />
+        <TopNavigation user={user} />
         <main className="p-6 mt-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="col-span-full">
