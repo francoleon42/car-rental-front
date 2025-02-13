@@ -1,22 +1,20 @@
 // components/Profile/UserInfo.jsx
 import { useState, useEffect } from 'react';
 //import { getUserInfo, updateUserInfo } from '../../servicios/userService';
+import { useAuth } from '../../auth/AuthContext';
+import { getUser, updateUser } from '../../../servicios/userService';
 
 const UserInfo = () => {
+  const { token } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
-  const [userData, setUserData] = useState({
-    firstName: '',
-    lastName: '',
-    dob: '',
-    address: '',
-    country: ''
-  });
+  const [userData, setUserData] = useState({});
 
   useEffect(() => {
+
     const fetchUserData = async () => {
       try {
-     //   const data = await getUserInfo();
-        setUserData(data);
+        const response = await getUser(token);
+        setUserData(response);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -24,10 +22,21 @@ const UserInfo = () => {
     fetchUserData();
   }, []);
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await updateUserInfo(userData);
+      console.log("requst");
+      const formattedDob = userData.dob ? new Date(userData.dob).toISOString().split("T")[0] : new Date(userData.dob).toISOString().split("T")[0];
+      const request = {
+        "firstName": userData.firstName,
+        "lastName": userData.lastName,
+        dob:formattedDob, 
+        "address": userData.address,
+        "country": userData.country
+      }
+      console.log(request);
+      const response = await updateUser(request, token);
       setIsEditing(false);
     } catch (error) {
       console.error('Error updating user data:', error);
@@ -54,17 +63,17 @@ const UserInfo = () => {
               <input
                 type="text"
                 value={userData.firstName}
-                onChange={(e) => setUserData({...userData, firstName: e.target.value})}
+                onChange={(e) => setUserData({ ...userData, firstName: e.target.value })}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
-            
+
             <div>
               <label className="block text-sm font-medium text-gray-700">Apellido</label>
               <input
                 type="text"
                 value={userData.lastName}
-                onChange={(e) => setUserData({...userData, lastName: e.target.value})}
+                onChange={(e) => setUserData({ ...userData, lastName: e.target.value })}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
@@ -74,7 +83,7 @@ const UserInfo = () => {
               <input
                 type="date"
                 value={userData.dob}
-                onChange={(e) => setUserData({...userData, dob: e.target.value})}
+                onChange={(e) => setUserData({ ...userData, dob: e.target.value })}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
@@ -84,7 +93,7 @@ const UserInfo = () => {
               <input
                 type="text"
                 value={userData.country}
-                onChange={(e) => setUserData({...userData, country: e.target.value})}
+                onChange={(e) => setUserData({ ...userData, country: e.target.value })}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
@@ -94,7 +103,7 @@ const UserInfo = () => {
             <label className="block text-sm font-medium text-gray-700">Dirección</label>
             <textarea
               value={userData.address}
-              onChange={(e) => setUserData({...userData, address: e.target.value})}
+              onChange={(e) => setUserData({ ...userData, address: e.target.value })}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               rows="3"
             />
