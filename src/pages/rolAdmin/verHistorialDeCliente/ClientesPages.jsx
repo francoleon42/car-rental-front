@@ -1,32 +1,28 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ClienteCard from './componentes/ClienteCard';
-import ClienteDetalle from './componentes/ClienteDetalle'; '../verHistorialDeCliente/componentes/ClienteDetalle';
+import ClienteDetalle from './componentes/ClienteDetalle';
+import { getClients } from '../../../servicios/userService';
+import { useAuth } from '../../auth/AuthContext';
 
 const ClientsPage = () => {
-  const [clients] = useState([
-    {
-      id: 1,
-      firstName: "Juan",
-      lastName: "Pérez",
-      dob: "1990-01-15",
-      address: "Calle Principal 123",
-      country: "México"
-    },
-    {
-      id: 2,
-      firstName: "Franco",
-      lastName: "Pérez",
-      dob: "2001-01-15",
-      address: "Calle Principal 123",
-      country: "Argentina"
-    },
-  ]);
-
-  const [requests] = useState([
-    // Tus datos de solicitudes mockeadas...
-  ]);
-
+  const [clients,setClients] = useState([]);
+  const { token, logout } = useAuth();
   const [selectedClient, setSelectedClient] = useState(null);
+
+
+  useEffect(() => {
+  
+    const fetchClients = async () => {
+      try {
+        const response = await getClients(token); 
+        setClients(response); 
+      } catch (error) {
+        console.log("Error al obtener usuario:", error);
+      }
+    };
+
+    fetchClients(); 
+  }, []); 
 
   return (
     <div className="flex min-h-screen bg-gray-50">
@@ -46,7 +42,7 @@ const ClientsPage = () => {
       {/* Detalles del Cliente */}
       <ClienteDetalle
         client={selectedClient}
-        // requests={requests.filter(r => r.clientId === selectedClient?.id)}
+      // requests={requests.filter(r => r.clientId === selectedClient?.id)}
       />
     </div>
   );

@@ -1,33 +1,25 @@
 import PropTypes from 'prop-types';
 import SolicitudCliente from './SolicitudCliente';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useAuth } from '../../../auth/AuthContext';
+import { rentsByUser } from '../../../../servicios/rentService';
 
 const ClienteDetalle = ({ client }) => {
+  const { token, logout } = useAuth();
+  const [historial,setHistorial] = useState([]);
 
-  const [historial] = useState([
-    {
-      "id": 1,
-      "pricePerDay": 50,
-      "acceptedDate": null,
-      "rejected": false,
-      "startingDate": "2024-03-01T00:00:00.000Z",
-      "dueDate": "2026-03-05T00:00:00.000Z",
-      "endDate": null,
-      "createdAt": "2025-02-11T20:32:50.096Z",
-      "updatedAt": "2025-02-11T20:32:50.096Z"
-    },
-    {
-      "id": 2,
-      "pricePerDay": 50,
-      "acceptedDate": null,
-      "rejected": false,
-      "startingDate": "2024-04-01T00:00:00.000Z",
-      "dueDate": "2026-03-05T00:00:00.000Z",
-      "endDate": null,
-      "createdAt": "2025-02-11T20:32:50.099Z",
-      "updatedAt": "2025-02-11T20:32:50.099Z"
-    }
-  ]);
+   useEffect(() => {
+      const fetchDetailsClient = async () => {
+        try {
+          const response = await rentsByUser(client.id,token); 
+          setHistorial(response); 
+        } catch (error) {
+          console.log("Error al obtener usuario:", error);
+        }
+      };
+  
+      fetchDetailsClient(); 
+    },[client?.id,token]); 
 
   if (!client) return (
     <div className="p-8 text-gray-500 text-center">

@@ -13,7 +13,7 @@ const LoginForm = ({ switchToSignup, switchToForgot }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [formData, setFormData] = useState({
-    email: 'john.doe@example.com',
+    email: 'admin@rentalcars.com',
     password: '1234',
   });
 
