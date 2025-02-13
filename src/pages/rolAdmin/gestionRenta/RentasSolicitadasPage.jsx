@@ -1,46 +1,49 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import RequestsList from '../gestionRenta/componentes/RequestsList';
+import { requestedRents, aceptRent, rejectRent } from '../../../servicios/rentService';
+import { useAuth } from '../../auth/AuthContext';
 
 const RentasSolicitadasPage = () => {
-  // Mock data
-  const [requests, setRequests] = useState([
-    {
-        "id": 1,
-        "pricePerDay": 50,
-        "acceptedDate": null,
-        "rejected": false,
-        "startingDate": "2024-03-01T00:00:00.000Z",
-        "dueDate": "2026-03-05T00:00:00.000Z",
-        "endDate": null,
-        "createdAt": "2025-02-11T20:03:30.134Z",
-        "updatedAt": "2025-02-11T20:03:30.134Z"
-    },
-    {
-        "id": 2,
-        "pricePerDay": 50,
-        "acceptedDate": null,
-        "rejected": false,
-        "startingDate": "2024-04-01T00:00:00.000Z",
-        "dueDate": "2026-03-05T00:00:00.000Z",
-        "endDate": null,
-        "createdAt": "2025-02-11T20:03:30.140Z",
-        "updatedAt": "2025-02-11T20:03:30.140Z"
-    }
-  ]);
+  const { token } = useAuth();
+  const [requests, setRequests] = useState([]);
+  const [resetFrame, setResetFrame] = useState(false);
+
+
+  useEffect(() => {
+    const fetchRequestedRents = async () => {
+      try {
+        const response = await requestedRents(token);
+        setRequests(response);
+      } catch (error) {
+        console.log("Error al obtener usuario:", error);
+      }
+      setResetFrame(false);
+    };
+
+    fetchRequestedRents();
+  }, [resetFrame]);
 
   const handleAccept = async (id) => {
-    console.log('Aceptando solicitud:', id);
-    // Aquí iría la llamada a la API /rent/aceptar/id
+    try {
+      const response = await aceptRent(id,token);
+      setResetFrame(true);
+    } catch (error) {
+      console.log("Error al obtener usuario:", error);
+    }
   };
 
   const handleReject = async (id) => {
-    console.log('Rechazando solicitud:', id);
-    // Aquí iría la llamada a la API /rent/rechazar/id
+    try {
+      const response = await rejectRent(id,token); 
+      setResetFrame(true);
+    } catch (error) {
+      console.log("Error al obtener usuario:", error);
+    }
   };
 
   return (
     <RequestsList
-      requests={requests}
+      requests={requests || []}
       onAccept={handleAccept}
       onReject={handleReject}
     />
