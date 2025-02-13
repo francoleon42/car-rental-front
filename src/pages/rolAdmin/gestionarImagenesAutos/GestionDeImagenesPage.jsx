@@ -2,73 +2,59 @@ import { useState, useEffect } from 'react';
 import CarList from './componentes/CarList';
 import ImageGallery from './componentes/ImagenGallery';
 import UploadImageForm from './componentes/CrearImagenForm';
+import { getCars } from '../../../servicios/carService';
+import { useAuth } from '../../auth/AuthContext';
+import { getPictureByCar, deletePicture, uploadPicture } from '../../../servicios/pictureService';
 
 const GestionDeImagenesPage = () => {
+  const { token } = useAuth();
   const [cars, setCars] = useState([]);
   const [selectedCar, setSelectedCar] = useState(null);
   const [carImages, setCarImages] = useState([]);
+  const [resetFrame, setResetFrame] = useState(false);
 
-  // Mock: Obtener lista de autos
   useEffect(() => {
-    // TODO: Reemplazar con fetch real
-    const mockCars = [
-      {
-        id: 1,
-        brand: "Toyota",
-        model: "Corolla",
-        color: "Red",
-        passengers: 5,
-        ac: true,
-        pricePerDay: 50,
-        createdAt: "2025-02-12T14:38:32.186Z"
-      },
-      {
-        id: 2,
-        brand: "Honda",
-        model: "Civic",
-        color: "Blue",
-        passengers: 5,
-        ac: true,
-        pricePerDay: 45,
-        createdAt: "2025-02-12T14:38:32.202Z"
+    const fetchCars = async () => {
+      try {
+        const response = await getCars(token);
+        setCars(response);
+      } catch (error) {
+        console.log("Error al obtener los cars:", error);
       }
-    ];
-    setCars(mockCars);
+    };
+    fetchCars();
   }, []);
 
-  // Mock: Obtener imágenes del auto seleccionado
   useEffect(() => {
-    if (!selectedCar) return;
-
-    // TODO: Reemplazar con fetch real
-    const mockImages = [
-      {
-        id: "1",
-        src: "toyota-front.jpg",
-        description: "Vista frontal",
-        title: "Toyota",
-        carPicture: "front"
-      },
-      {
-        id: "2",
-        src: "toyota-side.jpg",
-        description: "Vista lateral",
-        title: "Toyota",
-        carPicture: "side"
+    const fetchPicturesByCars = async () => {
+      try {
+        const response = await getPictureByCar(selectedCar.id,token);
+        setCarImages(response);
+        setResetFrame(false);
+      } catch (error) {
+        console.log("Error al obtener los cars:", error);
       }
-    ];
-    setCarImages(mockImages);
-  }, [selectedCar]);
+    };
+    fetchPicturesByCars();
+  }, [selectedCar,resetFrame]);
 
   const handleDeleteImage = async (imageId) => {
-    // TODO: Implementar borrado real
-    console.log('Eliminar imagen:', imageId);
-    setCarImages(prev => prev.filter(img => img.id !== imageId));
+    try {
+      const response = await deletePicture(imageId,token);
+      setResetFrame(true);
+    } catch (error) {
+      console.log("Error al borrar la picture:", error);
+    }
+     setCarImages(prev => prev.filter(img => img.id !== imageId));
   };
 
   const handleUploadImage = async (newImage) => {
-    // TODO: Implementar subida real
-    console.log('Subir nueva imagen:', newImage);
+    try {
+      const response = await uploadPicture(selectedCar.id,newImage,token);
+      setResetFrame(true);
+    } catch (error) {
+      console.log("Error al borrar la picture:", error);
+    }
     setCarImages(prev => [...prev, {
       ...newImage,
       id: Date.now().toString()
