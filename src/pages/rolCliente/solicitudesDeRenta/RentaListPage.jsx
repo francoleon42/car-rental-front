@@ -15,7 +15,7 @@ const RentasListPage = () => {
                 console.log(response);
                 setRentas(response);
             } catch (error) {
-                console.error('Error fetching rentas:', error);
+                console.error('Error al obtener las rentas:', error);
             }
         };
     

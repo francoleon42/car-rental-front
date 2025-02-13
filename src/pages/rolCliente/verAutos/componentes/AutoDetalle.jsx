@@ -17,7 +17,7 @@ const AutoDetalle = () => {
          const response = await getCarDetails(id,token);
         setAutoDetalle(response);
       } catch (error) {
-        console.error('Error fetching car detail:', error);
+        console.error('Error al obtener el detall del auto:', error);
       } finally {
         setLoading(false);
       }

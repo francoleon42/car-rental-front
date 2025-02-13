@@ -14,7 +14,7 @@ const ClienteDetalle = ({ client }) => {
           const response = await rentsByUser(client.id,token); 
           setHistorial(response); 
         } catch (error) {
-          console.log("Error al obtener usuario:", error);
+          console.log("Error al obtener las rentas del usuario:", error);
         }
       };
   

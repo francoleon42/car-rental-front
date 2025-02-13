@@ -32,7 +32,7 @@ const GestionDeImagenesPage = () => {
         setCarImages(response);
         setResetFrame(false);
       } catch (error) {
-        console.log("Error al obtener los cars:", error);
+        console.log("Error al obtener las imagenes del auto:", error);
       }
     };
     fetchPicturesByCars();
@@ -53,7 +53,7 @@ const GestionDeImagenesPage = () => {
       const response = await uploadPicture(selectedCar.id,newImage,token);
       setResetFrame(true);
     } catch (error) {
-      console.log("Error al borrar la picture:", error);
+      console.log("Error al cargar la picture:", error);
     }
     setCarImages(prev => [...prev, {
       ...newImage,

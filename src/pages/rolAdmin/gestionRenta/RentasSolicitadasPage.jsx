@@ -15,7 +15,7 @@ const RentasSolicitadasPage = () => {
         const response = await requestedRents(token);
         setRequests(response);
       } catch (error) {
-        console.log("Error al obtener usuario:", error);
+        console.log("Error al obtener las rentas solicitadas:", error);
       }
       setResetFrame(false);
     };
@@ -28,7 +28,7 @@ const RentasSolicitadasPage = () => {
       const response = await aceptRent(id,token);
       setResetFrame(true);
     } catch (error) {
-      console.log("Error al obtener usuario:", error);
+      console.log("Error al aceptar la renta:", error);
     }
   };
 
@@ -37,7 +37,7 @@ const RentasSolicitadasPage = () => {
       const response = await rejectRent(id,token); 
       setResetFrame(true);
     } catch (error) {
-      console.log("Error al obtener usuario:", error);
+      console.log("Error al rechazar la renta:", error);
     }
   };
 
