@@ -1,84 +1,56 @@
 import { useState, useEffect } from 'react';
 import CarList from './componentes/AutoList';
 import CarForm from './componentes/AutoForm';
+import { getCars, createCar, updateCar } from '../../../servicios/carService';
+import { useAuth } from '../../auth/AuthContext';
 
 const GestionAutosPage = () => {
+  const { token } = useAuth();
   const [cars, setCars] = useState([]);
   const [selectedCar, setSelectedCar] = useState(null);
+  const [resetFrame, setResetFrame] = useState(false);
+
 
   useEffect(() => {
-    // Simular llamada API REMPLAZAR POR CARS/
-    const mockCars = [
-      {
-        id: 1,
-        brand: "Toyota",
-        model: "Corolla",
-        color: "Red",
-        passengers: 5,
-        ac: true,
-        pricePerDay: 50,
-        createdAt: "2025-02-12T12:53:27.242Z"
-      },
-      {
-        id: 2,
-        brand: "Honda",
-        model: "Civic",
-        color: "Blue",
-        passengers: 5,
-        ac: true,
-        pricePerDay: 45,
-        createdAt: "2025-02-12T12:53:27.258Z"
-      }
-    ];
-    setCars(mockCars);
-  }, []);
-
-  const handleCreateCar = (carData) => {
-    // Simular POST API REMPLAZAR POR CARS/CREAR
-    const newCar = {
-      ...carData,
-      id: Date.now(),
-      createdAt: new Date().toISOString()
-    };
-    setCars(prev => [...prev, newCar]);
-    setSelectedCar(null);
-    /*
+    const fetchCars = async () => {
       try {
-    const newCar = await createCar(carData); // Llamar al backend
+        const response = await getCars(token);
+        setCars(response);
+      } catch (error) {
+        console.log("Error al obtener los cars:", error);
+      }
+    };
+    setResetFrame(false);
+    fetchCars();
+  }, [resetFrame]);
 
-    setCars(prev => [...prev, newCar]); // Agregar el auto a la lista
+  const handleCreateCar = async (carData) => {
+    console.log(carData);
 
-    setSelectedCar(null);
-  } catch (error) {
-    console.error("Error al crear el auto:", error);
-  }
-    */
+    try {
+      const response = await createCar(carData, token);
+      setCars(prev => [...prev, response]);
+      setSelectedCar(null);
+      setResetFrame(true);
+    } catch (error) {
+      console.error("Error al crear el auto:", error);
+    }
+
   };
 
-  const handleUpdateCar = (carData) => {
-    // Simular PATCH API REMPLAZAR POR CARS/ACTUALIZAR/:ID
-    setCars(prev =>
-      prev.map(car =>
-        car.id === selectedCar.id
-          ? { ...carData, id: car.id, updatedAt: new Date().toISOString() }
-          : car
-      )
-    );
-    setSelectedCar(null);
+  const handleUpdateCar = async (carData) => {
+    try {
+      console.log(carData)
+      const response = await updateCar(carData.id, carData, token);
+      setCars(prev =>
+        prev.map(car => (car.id === selectedCar.id ? response : car))
+      );
+      setSelectedCar(null);
+      setResetFrame(true);
+    } catch (error) {
+      console.error("Error al actualizar el auto:", error);
+    }
 
-    /*
-      try {
-    const updatedCar = await updateCar(selectedCar.id, carData);
-
-    setCars(prev =>
-      prev.map(car => (car.id === selectedCar.id ? updatedCar : car))
-    );
-
-    setSelectedCar(null);
-  } catch (error) {
-    console.error("Error al actualizar el auto:", error);
-  }
-    */
   };
 
   return (
@@ -95,6 +67,7 @@ const GestionAutosPage = () => {
             {selectedCar ? 'Editar Auto' : 'Crear Nuevo Auto'}
           </h2>
           <CarForm
+            key={selectedCar?.id || "new"}
             initialData={selectedCar}
             onSubmit={selectedCar ? handleUpdateCar : handleCreateCar}
           />
