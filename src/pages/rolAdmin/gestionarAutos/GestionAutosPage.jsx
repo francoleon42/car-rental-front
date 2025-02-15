@@ -30,8 +30,8 @@ const GestionAutosPage = () => {
     try {
       const response = await createCar(carData, token);
       setCars(prev => [...prev, response]);
-      setSelectedCar(null);
       setResetFrame(true);
+      setSelectedCar(null);
     } catch (error) {
       console.error("Error al crear el auto:", error);
     }

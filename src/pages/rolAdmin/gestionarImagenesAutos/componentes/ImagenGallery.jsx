@@ -2,7 +2,7 @@ const ImagenGallery = ({ images, onDeleteImage }) => {
     return (
       <div className="mb-8">
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {images.map((image) => (
+          {images.length >0 && images.map((image) => (
             <div key={image.id} className="relative group">
               <img
                 src={image.src}
