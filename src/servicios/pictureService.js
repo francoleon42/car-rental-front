@@ -15,6 +15,7 @@ export const deletePicture = async (id,token) => {
 };
 
 export const uploadPicture = async (id,data,token) => {
+    
     const endpoint = backendUrl + '/picture/upload-for-car/'+id;
     return await executeFetch(endpoint, data, HttpMethods.POST, token, 201);
 };
