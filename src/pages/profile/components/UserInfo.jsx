@@ -26,7 +26,6 @@ const UserInfo = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log("requst");
       const formattedDob = userData.dob ? new Date(userData.dob).toISOString().split("T")[0] : new Date(userData.dob).toISOString().split("T")[0];
       const request = {
         "firstName": userData.firstName,

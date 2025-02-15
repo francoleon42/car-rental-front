@@ -17,17 +17,20 @@ const validateMethod = (method) => {
 const getFetchOptions = (method, data, token) => {
     const options = {
         method: method,
-        headers: {
-        'Content-Type': 'application/json',
-        },
+        headers: {}
     };
 
     if (token) {
         options.headers['Authorization'] = `Bearer ${token}`;
     }
 
+    // Solo añade Content-Type si no es FormData
+    if (!(data instanceof FormData)) {
+        options.headers['Content-Type'] = 'application/json';
+    }
+
     if (data && (method === HttpMethods.POST || method === HttpMethods.PUT || method === HttpMethods.PATCH)) {
-        options.body = JSON.stringify(data);
+        options.body = data instanceof FormData ? data : JSON.stringify(data);
     }
 
     return options;
