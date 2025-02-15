@@ -1,8 +1,12 @@
 @import "tailwindcss";
 
+
 body {
   @apply text-2xl;
+ zoom: 0.8; 
 }
+
+
 p {
   @apply text-lg; 
 }

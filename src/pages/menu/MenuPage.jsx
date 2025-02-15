@@ -39,9 +39,9 @@ const Sidebar = ({ user }) => {
   };
   return (
     <motion.div
-      initial={{ width: 720 }}
-      animate={{ width: isCollapsed ? 80 : 820 }}
-      className="h-screen bg-white shadow-lg fixed left-0 top-0 z-20 transition-all duration-300"
+      initial={{ width: 520 }}
+      animate={{ width: isCollapsed ? 80 : 520 }}
+      className=" h-[180vh] bg-white shadow-lg fixed left-0 top-0 z-20 transition-all duration-300"
     >
       <div className="p-4">
         <div className="flex items-center justify-between mb-8">
@@ -142,7 +142,7 @@ const MenuPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Sidebar user={user} />
-      <div className="ml-240 transition-all duration-300">
+      <div className="ml-140 transition-all duration-300">
         <TopNavigation user={user} />
         <main className="p-6 mt-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
