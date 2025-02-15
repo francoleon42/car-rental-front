@@ -1,6 +1,6 @@
 // components/Documents/DocumentUpload.jsx
 import { useState } from 'react';
-import { uploadDocument } from '../../../servicios/documentService';
+import { uploadDocument } from '../../../services/documentService';
 import { useAuth } from '../../auth/AuthContext';
 
 const DocumentUpload = ({ onDocumentUpload }) => {

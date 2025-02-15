@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
 
 import { useNavigate } from 'react-router-dom';
-import {signup} from "../../../servicios/authServicio"
+import {signup} from "../../../services/authService"
 
 const SignupForm = ({ switchToLogin }) => {
   const navigate = useNavigate();

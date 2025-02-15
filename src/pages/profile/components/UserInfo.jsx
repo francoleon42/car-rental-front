@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 //import { getUserInfo, updateUserInfo } from '../../servicios/userService';
 import { useAuth } from '../../auth/AuthContext';
-import { getUser, updateUser } from '../../../servicios/userService';
+import { getUser, updateUser } from '../../../services/userService';
 
 const UserInfo = () => {
   const { token } = useAuth();

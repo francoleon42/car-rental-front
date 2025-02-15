@@ -3,7 +3,7 @@ import { FiHome, FiUsers, FiBarChart2, FiSettings, FiClipboard, FiMessageSquare,
 import { motion, AnimatePresence } from "framer-motion";
 import ImageCarousel from "./components/ImageCarousel.jsx"
 import { MdDirectionsCar } from "react-icons/md";
-import { getUser } from "../../servicios/userService.js";
+import { getUser } from "../../services/userService.js";
 import { useAuth } from "../../pages/auth/AuthContext.jsx";
 import { useNavigate } from 'react-router-dom';
 

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
-import { login } from '../../../servicios/authServicio';
+import { login } from '../../../services/authService';
 import { useAuth } from "../../../pages/auth/AuthContext";
 import { useNavigate } from 'react-router-dom';
 

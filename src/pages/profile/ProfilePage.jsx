@@ -4,7 +4,7 @@ import UserInfo from '../profile/components/UserInfo';
 import DocumentUpload from '../profile/components/DocumentUpload';
 import DocumentList from '../profile/components/DocumentList';
 import { useAuth } from "../../pages/auth/AuthContext.jsx";
-import { getDocuments } from '../../servicios/documentService.js';
+import { getDocuments } from '../../services/documentService.js';
 
 const ProfilePage = () => {
   const { token } = useAuth();
