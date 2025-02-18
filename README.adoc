@@ -1,10 +1,15 @@
-=== 
+= Frontend
 
-== Iniciar el frontend
+Primero debes de ejecutar el backend 
+link:https://github.com/francoleon42/car-rental-back[GitHub - Car Rental Backend]
+link:https://github.com/francoleon42/car-rental-back/blob/main/documentacion/docu.adoc[GitHub - Documentacion del back]
+
+
+=== Iniciar el frontend
 Ve al directorio raiz del proyecto React y ejecuta:
 	~npm run dev
 
-==  Uso de la aplicación
+===  Uso de la aplicación
 Abre un navegador y ve a:
 👉 http://localhost:5173/
 
