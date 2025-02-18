@@ -13,8 +13,8 @@ const LoginForm = ({ switchToSignup, switchToForgot }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [formData, setFormData] = useState({
-    email: 'admin@rentalcars.com',
-    password: '1234',
+    email: '',
+    password: '',
   });
 
   const handleSubmit = async (e) => {
