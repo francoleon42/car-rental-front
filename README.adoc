@@ -1,8 +1,9 @@
 = Frontend
 
 Primero debes de ejecutar el backend 
-link:https://github.com/francoleon42/car-rental-back[GitHub - Car Rental Backend]
-link:https://github.com/francoleon42/car-rental-back/blob/main/documentacion/docu.adoc[GitHub - Documentacion del back]
+
+- link:https://github.com/francoleon42/car-rental-back[GitHub - Car Rental Backend]
+- link:https://github.com/francoleon42/car-rental-back/blob/main/documentacion/docu.adoc[GitHub - Documentacion del back]
 
 
 === Iniciar el frontend
