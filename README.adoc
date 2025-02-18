@@ -8,6 +8,7 @@ Primero debes de ejecutar el backend
 
 === Iniciar el frontend
 Ve al directorio raiz del proyecto React y ejecuta:
+
 	~npm run dev
 
 ===  Uso de la aplicación
